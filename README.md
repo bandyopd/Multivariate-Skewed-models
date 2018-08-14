@@ -7,6 +7,9 @@ Status:  "Under Revision" in Biometrics
 ## R and JAGS code for implementing the Semiparametric Multivariate Skew (SMS) model and the Parametric Gaussian Mixture (PGM) model to simulated data
 
 
+Author: Apurva Bhingare, PhD
+Last updated: 08/14/2018
+
 There are 2 folders in the repository: SMS and PGM. The contents of the folders are below:
 
 
