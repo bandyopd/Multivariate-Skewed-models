@@ -1,5 +1,6 @@
 Title:   "Semiparametric Bayesian latent variable regression for skewed multivariate data"  	        
 Authors:  Apurva Bhingare, Debajyoti Sinha, Debdeep Pati, Dipankar Bandyopadhyay and Stuart Lipsitz
+
 Status:  "Under Revision" in Biometrics
 
 
@@ -30,4 +31,4 @@ Richmond
 VA 23298-0032
 USA
 
-E-mail:dbandyop@vcu.edu
+E-mail: dbandyop@vcu.edu
