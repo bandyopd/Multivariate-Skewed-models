@@ -10,13 +10,13 @@ Status:  "Under Revision" in Biometrics
 There are 2 folders in the repository: SMS and PGM. The contents of the folders are below:
 
 
-# Simulated_Data.csv : 
+# Simulated_Data.csv
  .csv files containing the simulated dataset. 
 
-# SMS_run.R and PGM_run.R: 
+# SMS_run.R & PGM_run.R
  A set of R commands for implementing the Bayesian analysis of the SMS and PGM models in JAGS, respectively
 
-# SMS.txt and PGM.txt:      
+# SMS.txt & PGM.txt   
  Text files with the BUGS code for the SMS and PGM models, respectively.
 
 
