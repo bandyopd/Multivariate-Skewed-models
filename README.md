@@ -20,7 +20,7 @@ There are 2 folders in the repository: SMS and PGM. The contents of the folders 
 
 Contact: 
 
-Dipankar Bandyopadhyay, PhD
+Dipankar Bandyopadhyay, PhD,
 Professor, Department of Biostatistics
 Director, Biostatistics Shared Resources, Massey Cancer Center
 Virginia Commonwealth University
