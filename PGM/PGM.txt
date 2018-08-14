@@ -1,0 +1,62 @@
+model{ 
+for(i in 1:n)
+{    
+#### Likelihood specification in terms of standard distributions   
+
+      Y[i,1:2]~dmnorm(mu[i,1:2], Prec[1:2,1:2])     
+     	
+
+####  specification of location parameter      
+    	
+      mu[i,1]<-beta01+beta11*X11[i]+beta21*X21[i]+(alpha1/pow((1+pow(alpha1,2)),0.5))*abs(Z1[i,1])
+      mu[i,2]<-beta02+beta12*X12[i]+beta22*X22[i]+(alpha2/pow((1+pow(alpha2,2)),0.5))*abs(Z1[i,2])
+
+  
+#### Assumption on latent vector Z1
+      Z1[i,1]~dnorm(0,1/sigma1sq)
+      Z1[i,2]~dnorm(0,1/sigma2sq)
+}
+
+
+#### Specification of the Precision Matrix
+
+V[1,1]<-sigma1sq/(1+pow(alpha1,2))
+V[2,2]<-sigma2sq/(1+pow(alpha2,2))
+
+ for(k in 1:(m-1))
+{
+for (l in (k+1):m)
+{
+V[k,l]<-sigma1*sigma2*rho/(sqrt(1+pow(alpha1,2))*sqrt(1+pow(alpha2,2)))
+V[l,k]<-sigma1*sigma2*rho/(sqrt(1+pow(alpha1,2))*sqrt(1+pow(alpha2,2)))
+}
+}
+Prec[1:2,1:2]<-inverse(V[1:2,1:2])
+
+############################################################################################################################################################
+
+#### Priors Specification for the sigmas
+
+sigma1~dgamma(1,1)
+sigma1sq<-pow(sigma1,2)
+
+sigma2~dgamma(1,1)
+sigma2sq<-pow(sigma2,2)
+
+
+##############################################################################################################################################################
+
+#### Prior Specification for alphas and betas
+
+alpha1~dnorm(0,0.01)
+alpha2~dnorm(0,0.01)
+rho~dunif(-1,1)
+
+beta01~dnorm(0,0.01)
+beta11~dnorm(0,0.01)
+beta21~dnorm(0,0.01)
+
+beta02~dnorm(0,0.01)
+beta12~dnorm(0,0.01)
+beta22~dnorm(0,0.01)
+}
