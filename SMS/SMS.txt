@@ -1,0 +1,107 @@
+model{ 
+for(i in 1:n)
+{    
+#### Likelihood specification in terms of standard distributions   
+
+      Y[i,1:2]~dmnorm(mu[i,1:2], Prec[i,1:2,1:2])     
+      Prec[i,1:2,1:2]<-inverse(V[i,1:2,1:2])	
+
+####  specification of location parameter      
+    	
+      mu[i,1]<-beta01+beta11*X11[i]+beta21*X21[i]+(alpha1/pow((1+pow(alpha1,2)),0.5))*abs(Z1[i,1])
+      mu[i,2]<-beta02+beta12*X12[i]+beta22*X22[i]+(alpha2/pow((1+pow(alpha2,2)),0.5))*abs(Z1[i,2])
+
+  
+#### Assumption on latent vector Z1
+      Z1[i,1]~dnorm(0,1/sigma1sq[i])
+      Z1[i,2]~dnorm(0,1/sigma2sq[i])
+}
+
+
+############################################################################################################################################################
+#### Specification of the Variance/Association Matrix
+
+for(i in 1:n)
+{
+V[i,1,1]<-sigma1sq[i]/(1+pow(alpha1,2))
+V[i,2,2]<-sigma2sq[i]/(1+pow(alpha2,2))
+
+ for(k in 1:(m-1))
+{
+for (l in (k+1):m)
+{
+V[i,k,l]<-sigma1[i]*sigma2[i]*rho/(sqrt(1+pow(alpha1,2))*sqrt(1+pow(alpha2,2)))
+V[i,l,k]<-sigma1[i]*sigma2[i]*rho/(sqrt(1+pow(alpha1,2))*sqrt(1+pow(alpha2,2)))
+}
+}
+}
+
+############################################################################################################################################################
+
+#### Priors Specification for the sigmas
+
+for (i in 1:n) {
+sigma1[i]<-theta1[latent1[i]]
+sigma1sq[i]<-pow(sigma1[i],2)
+latent1[i]~dcat(p1[1:30])
+}
+
+
+#### stick-breaking prior
+p1[1] <- r1[1]
+s1[1]<- 1-r1[1]
+
+for (j in 2:29) {s1[j] <- (1-r1[j])*s1[j-1]}
+for (j in 2:29) {p1[j] <- r1[j]*s1[j-1]}
+
+for (k in 1:29){ r1[k] ~ dbeta(1,M)}
+
+p1[30]<- s1[29]
+
+#### Prior mean/guess for DP
+for (i in 1:n) {
+theta1[i] ~ dgamma(2,1)
+}
+
+for (i in 1:n) {
+sigma2[i]<-theta2[latent2[i]]
+sigma2sq[i]<-pow(sigma2[i],2)
+latent2[i]~dcat(p2[1:30])
+}
+
+
+#### stick-breaking prior
+p2[1] <- r2[1]
+s2[1]<- 1-r2[1]
+
+for (j in 2:29) {s2[j] <- (1-r2[j])*s2[j-1]}
+for (j in 2:29) {p2[j] <- r2[j]*s2[j-1]}
+
+for (k in 1:29){ r2[k] ~ dbeta(1,M)}
+
+p2[30]<- s2[29]
+
+#### Prior mean/guess for DP
+for (i in 1:n) {
+theta2[i] ~ dgamma(2,1)
+}
+
+# DPP parameter prior
+M<-1
+
+##############################################################################################################################################################
+
+#### Prior Specification for alphas and betas
+alpha1~dnorm(0,0.01)
+beta01~dnorm(0,0.01)
+beta11~dnorm(0,0.01)
+beta21~dnorm(0,0.01)
+
+
+alpha2~dnorm(0,0.01)
+beta02~dnorm(0,0.01)
+beta12~dnorm(0,0.01)
+beta22~dnorm(0,0.01)
+
+rho~dunif(-1,1)
+}
