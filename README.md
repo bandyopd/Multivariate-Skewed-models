@@ -1,7 +1,7 @@
 Title:   "Semiparametric Bayesian latent variable regression for skewed multivariate data"  	        
 Authors:  Apurva Bhingare, Debajyoti Sinha, Debdeep Pati, Dipankar Bandyopadhyay and Stuart Lipsitz
 
-Status:  "Under Revision" in Biometrics
+Status:  "Accepted" in Biometrics
 
 
 ## R and JAGS code for implementing the Semiparametric Multivariate Skew (SMS) model and the Parametric Gaussian Mixture (PGM) model to simulated data
